@@ -1,176 +1,103 @@
-
-
-
 // #pragma GLOBAL VARIABLES + WINDOWS INTO DOM
+'use strict';
+
 let storeHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
 
-// DOM manipulation step 1
+let stores = []
 
-let shopSection = document.getElementById('shopSales');
+let tableElem = document.getElementById('table')
 
-console.dir(sales);
-
-// #pragma HELPER FUNCTIONS - UTILITIES
-
-// grabbed from MDN docs
-
-function randomCust(min, max) {
-  let customers = [];
-  for (let i = 0; i < shopHours.length; i++) {
-    let randomCustomers = Math.floor(Math.random() * (max - min + 1) + min);
-    customers.push(randomCustomers);
-  }
-  return customers;
-}
-
-// #pragma OBJECT LITERALS
-function stores(name, mincust, maxcust, avgCookieSales, cookieNums, customers) {
+function Stores(name, minCust, maxCust, avgCookieSales) {
   this.name = name;
   this.minCust = minCust;
   this.maxCust = maxCust;
   this.avgCookieSales = avgCookieSales;
   this.total = 0;
-  this.customers = [];
-}
-
-let Seattle = {
-  total: 0,
-  name: 'Seattle',
-  minCust: 23,
-  maxCust: 65,
-  avgCookieSale: 6.3,
-  cookieNums [],
-  customers [],
-  randomCookies: function(min, max) {
-    let customers = [];
-    for (let i = 0; i < shopHours.length; i++) {
-      let randomCustomers = Math.floor(Math.random(max - min + 1) + min);
-      customers.push(randomCustomers);
-    }
+  this.custsHour = [];
+  this.cookieNums = [];
+  Stores.all.push(this);
+  
 }
 
 
-let headers = []
+// DOM manipulation step 1
 
-render: function () {
-  this.cookies = randomCookie(this.customers, this.avgCookieSale);
 
-  // ********* DOM MANIPULATION **********
-  // ** STEP 2: CREATE THE ELEMENT
+// #pragma HELPER FUNCTIONS - UTILITIES
 
-  let articleElem = document.createElement('article');
-  // ** STEP 3: GIVE CONTEXT IF NECESSARY
-  // skip for articleElem
+function makeHeader() {
+  let tableRow = document.createElement('tr')
+  tableElem.appendChild(tableRow);
 
-  // ** STEP 4: ADD IT TO THE DOM ---> parent.appendChild(child)
-  /*e
-    <div></div>
-  */
-  shopSection.appendChild(articleElem);
-  /*
-    <div>
-      <artcile></article>
-    </div>
-  */
+  let firstData = document.createElement('td');
+  tableRow.appendChild(firstData);
 
-  //create h2 element
 
-  let h2Elem = document.createElement('h2'); // <h2></h2>
-  h2Elem.textContent = this.location; // <h2>Seattle</h2>
-  articleElem.appendChild(h2Elem); 
-  /*
-   <div>
-    <article>
-      <h2>Seattle</h2>
-    </article>
-   </div> 
-   */
+for (let i=0; i < hours.length; i++) {
+  let tableData = documennt.createElement('td');
+  tableData.textContent = hours[i]; // td 6am td
+  tableRow.appendChild(tableData);
 
-  //create unordered list
+}
+}
 
-  let ulElem = document.createElement('ul');
-  articleElem.appendChild(ulElem);
-  /*
-   <div>
-    <article>
-      <h2>Seattle</h2>
-      <ul></ul>
-    </article>
-   </div> 
-   */
-
+Stores.prototype.randomCust = function () {
+  
   for (let i = 0; i < storeHours.length; i++) {
-    let liElem = document.createElement('li'); // <li></li>
-    liElem.textContent = `${storeHours[i]}: ${this.cookies[i]} cookies`;
-    // <li>6am: 55 cookies</li>
-    ulElem.appendChild(liElem);
-    /*
-   <div>
-    <article>
-      <h2>Seattle</h2>
-      <ul>
-        <li>6am: 55 cookies</li>
-        <li>7am: 120 cookies</li>
-      </ul>
-    </article>
-   </div> 
-   */
+    let randomCustomers = Math.floor(Math.random() * (this.maxCust - this.minCust + 1) + this.minCust);
+    this.custsHour.push(randomCustomers);
   }
-}
-;
-seattleShop.cust = randomCust(seattleShop.minCust, seattleShop.maxCust);
-seattleShop.render();
-
-let Tokyo = {
-  total: 0,
-  name: 'Tokyo',
-  minCust: 3,
-  maxCust: 24,
-  avgCookieSale: 1.2,
+  
 }
 
-let Dubai = {
-  total: 0,
-  name: 'Dubai',
-  minCust: 11,
-  maxCust: 38,
-  avgCookieSale: 3.7,
-}
+Stores.prototype.cookiesPerHour = function () {
+  this.randomCust()
+  for (let i = 0; i < storeHours.length; i++) {
+    let oneHour = Math.round(this.custsHour[i] * this.avgCookieSales)
 
-let Paris = {
-  total: 0,
-  name: 'Paris',
-  minCust: 20,
-  maxCust: 38,
-  avgCookieSale: 2.3;
-}
+    this.cookieNums.push(oneHour)
 
-let Lima = {
-  total: 0,
-  name: 'Lima',
-  minCust: 2,
-  maxCust: 16,
-  acvCookieSale: 4.6;
-}
-
-class shops {
-  constructor(minCust, maxCust, avgCookieSales) {
-    this.minimumCustomers = minCust
-    this.maximumCustomers = maxCust
-    this.averageCookieSales = avgCookieSales
-
-    total: 0,
-    name: 'Seattle',
-    minCust: 23,
-    maxCust: 65,
-    avgCookieSale: 6.3,
-    cookieNums [],
-    customers [],
+    this.Total += oneHour;
   }
 }
 
-var shopsOne = new shopsOne();
+// #pragma CONSTRUCTOR FUNCTION
 
-// #pragma EXECUTABLE CODE
+
+Stores.prototype.render = function () {
+  this.cookiesPerHour()
+  let tableRow = document.createElement('tr');
+  let city = document.createElement('th');
+  city.textContent = this.name;
+  tableElem.appendChild(tableRow);
+  tableRow.appendChild(city);
+
+  for (let i = 0; i < storeHours.length; i++){
+    let tableData = document.createElement('td');
+    tableData.textContent = this.cookieNums[i];
+    tableRow.appendChild(tableData);
+  }
+
+  let totalRow = document.createElement('td');
+  totalRow.textContent = this.total;
+  tableRow.appendChild(totalRow);
+};
+
+Stores.all = []
+
+new Stores('Seattle', 23, 65, 6.3);
+
+function renderAll(){
+ for (let i =0; i < Stores.all.length; i++){
+   Stores.all[i].render()
+
+ }
+}
+
+renderAll();
+   
+
+  
+ 
 
 
