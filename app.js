@@ -1,11 +1,46 @@
-// #pragma GLOBAL VARIABLES + WINDOWS INTO DOM
 'use strict';
 
-let storeHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
-let stores = []
+// -------------------------------------------------------------------------------
+// Helper functions
+// -------------------------------------------------------------------------------
 
+// Create new row element and add it to the table element
+function createRow(table) {
+  let tableRow = document.createElement('tr')
+  table.appendChild(tableRow)
+  return tableRow
+}
+
+// Create new row header element with a tile and add it to the row
+function createRowHeader(tableRow, title) {
+  let rowHeader = document.createElement('th');
+  rowHeader.textContent = title
+  rowHeader.style.fontWeight = 600
+  tableRow.appendChild(rowHeader)
+}
+
+// Create new row cell with content and add it to the row
+function createRowCell(tableRow, content) {
+  let tableCell = document.createElement('td');
+  tableCell.textContent = content
+  tableRow.appendChild(tableCell);
+}
+// -------------------------------------------------------------------------------
+// END OF HELPER METHODS
+// -------------------------------------------------------------------------------
+
+let storeHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+let storeHoursTotal = Array(storeHours.length).fill(0)
+let allDailyTotal = 0
+let stores = []
 let tableElem = document.getElementById('table')
-console.log(tableElem)
+
+Stores.all = []
+new Stores('Seattle', 23, 65, 6.3);
+new Stores('Tokyo', 3, 24, 1.2);
+new Stores('Dubai', 11, 38, 3.7);
+new Stores('Paris', 20, 38, 2.3);
+new Stores('Lima', 2, 16, 4.6);
 
 function Stores(name, minCust, maxCust, avgCookieSales) {
   this.name = name;
@@ -16,125 +51,57 @@ function Stores(name, minCust, maxCust, avgCookieSales) {
   this.custsHour = [];
   this.cookieNums = [];
   Stores.all.push(this);
-
 }
-
-
-// DOM manipulation step 1
-
-
-// #pragma HELPER FUNCTIONS - UTILITIES
 
 function makeHeader() {
-  let tableRow = document.createElement('tr')
-  let firstData = document.createElement('td');
-  firstData.textContent = "Locations"
-  tableRow.appendChild(firstData);
-  console.log(tableRow)
-
-  
+  let tableRow = createRow(tableElem)
+  tableRow.style.fontWeight = 600
+  createRowHeader(tableRow, 'Locations')
   for (let i = 0; i < storeHours.length; i++) {
-    let tableData = document.createElement('td');
-    tableData.textContent = storeHours[i]; // td 6am td
-    tableRow.appendChild(tableData);
-
+    createRowCell(tableRow, storeHours[i])
   }
-  let totalsElem =  document.createElement('td');
-  totalsElem.textContent = 'city total'
-  tableRow.appendChild(totalsElem)
-  tableElem.appendChild(tableRow);
+  createRowCell(tableRow, 'City Total')
 }
-Stores.all = []
-
-new Stores('Seattle', 23, 65, 6.3);
-new Stores('Tokyo', 3, 24, 1.2);
-new Stores('Dubai', 11, 38, 3.7);
-new Stores('Paris', 20, 38, 2.3);
-new Stores('Lima', 2, 16, 4.6);
 
 function makeFooter() {
-
-  let footerRow = document.createElement('tr')
-  tableElem.appendChild(footerRow)
-  
-  
-  
-  let firstFooterData = document.createElement('td')
-  firstFooterData.textContent = "Totals"
-  footerRow.appendChild(firstFooterData)
-  
-  for (let i = 0; i < storeHours.length; i++) {
-    let hourTotal = 0;
-    console.log('outerloop')
-  
-  
-   for (let j = 0; j < stores.length; j++) {
-    console.log('innerloop')
-
-    
-  
-
-   }
-    }
- }
-
+  let footerRow = createRow(tableElem)
+  createRowHeader(footerRow, 'Totals')
+  for (let i = 0; i < storeHoursTotal.length; i++) {
+    createRowCell(footerRow, storeHoursTotal[i])
+  }
+  createRowCell(footerRow, allDailyTotal)
+}
 
 Stores.prototype.randomCust = function () {
-
   for (let i = 0; i < storeHours.length; i++) {
     let randomCustomers = Math.floor(Math.random() * (this.maxCust - this.minCust + 1) + this.minCust);
     this.custsHour.push(randomCustomers);
   }
-
 }
 
 Stores.prototype.cookiesPerHour = function () {
   this.randomCust()
   for (let i = 0; i < storeHours.length; i++) {
     let oneHour = Math.round(this.custsHour[i] * this.avgCookieSales)
-
     this.cookieNums.push(oneHour)
-
     this.total += oneHour;
   }
 }
 
-// #pragma CONSTRUCTOR FUNCTION
-
-
 Stores.prototype.render = function () {
   this.cookiesPerHour()
-  let tableRow = document.createElement('tr');
-
-  let dataElement = document.createElement('th');
-  dataElement.textContent = this.name;
-
-  // tableElem.appendChild(tableRow);
-  tableRow.appendChild(dataElement);
-
+  let tableRow = createRow(tableElem)
+  createRowHeader(tableRow, this.name)
   for (let i = 0; i < storeHours.length; i++) {
-    dataElement = document.createElement('td');
-    dataElement.textContent = this.cookieNums[i];
-    tableRow.appendChild(dataElement);
+    createRowCell(tableRow, this.cookieNums[i])
+    storeHoursTotal[i] += this.cookieNums[i]
   }
-
-  let totalRow = document.createElement('td');
-  totalRow.textContent = this.total;
-  
-  tableRow.appendChild(totalRow);
-  
-  tableElem.appendChild(tableRow);
- 
+  createRowCell(tableRow, this.total)
+  allDailyTotal += this.total
 };
-
-
-
-
-
 
 function renderAll() {
   makeHeader();
-  console.log('renderAll')
   for (let i = 0; i < Stores.all.length; i++) {
     Stores.all[i].render()
   }
