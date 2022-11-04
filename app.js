@@ -2,7 +2,6 @@
 'use strict';
 
 let storeHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
-
 let stores = []
 
 let tableElem = document.getElementById('table')
@@ -33,7 +32,7 @@ function makeHeader() {
   tableRow.appendChild(firstData);
   console.log(tableRow)
 
-
+  
   for (let i = 0; i < storeHours.length; i++) {
     let tableData = document.createElement('td');
     tableData.textContent = storeHours[i]; // td 6am td
@@ -45,6 +44,40 @@ function makeHeader() {
   tableRow.appendChild(totalsElem)
   tableElem.appendChild(tableRow);
 }
+Stores.all = []
+
+new Stores('Seattle', 23, 65, 6.3);
+new Stores('Tokyo', 3, 24, 1.2);
+new Stores('Dubai', 11, 38, 3.7);
+new Stores('Paris', 20, 38, 2.3);
+new Stores('Lima', 2, 16, 4.6);
+
+function makeFooter() {
+
+  let footerRow = document.createElement('tr')
+  tableElem.appendChild(footerRow)
+  
+  
+  
+  let firstFooterData = document.createElement('td')
+  firstFooterData.textContent = "Totals"
+  footerRow.appendChild(firstFooterData)
+  
+  for (let i = 0; i < storeHours.length; i++) {
+    let hourTotal = 0;
+    console.log('outerloop')
+  
+  
+   for (let j = 0; j < stores.length; j++) {
+    console.log('innerloop')
+
+    
+  
+
+   }
+    }
+ }
+
 
 Stores.prototype.randomCust = function () {
 
@@ -98,27 +131,14 @@ Stores.prototype.render = function () {
 
 
 
-Stores.all = []
-
-new Stores('Seattle', 23, 65, 6.3);
-new Stores('Tokyo', 3, 24, 1.2);
-new Stores('Dubai', 11, 38, 3.7);
-new Stores('Paris', 20, 38, 2.3);
-new Stores('Lima', 2, 16, 4.6);
 
 function renderAll() {
   makeHeader();
   console.log('renderAll')
   for (let i = 0; i < Stores.all.length; i++) {
     Stores.all[i].render()
-
   }
+  makeFooter();
 }
 
 renderAll();
-
-
-
-
-
-
