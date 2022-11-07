@@ -1,7 +1,14 @@
 body {
   background-image: url(https://github.com/codefellows/seattle-code-201d92/blob/main/class-08/lab-b/image-assets/fish.jpg?raw=true);
-  background-color: rgb(247, 83, 65);
-}
+  color: black;
+  font-weight: 900;
+  text-decoration: overline;
+  
+  }
+
+  main {
+    background-color: tomato;
+  }
 
 #table {
   border: 1px solid black;
@@ -47,4 +54,7 @@ li a:hover {
   width: 400px;
   height: 250px;
 }
-
+.locations {
+  display: inline-block;
+  background-color: salmon;
+}

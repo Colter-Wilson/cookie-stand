@@ -25,6 +25,13 @@ function createRowCell(tableRow, content) {
   tableCell.textContent = content
   tableRow.appendChild(tableCell);
 }
+
+function createStore(tableRow, rowHeader, tableCell) {
+  
+
+}
+
+
 // -------------------------------------------------------------------------------
 // END OF HELPER METHODS
 // -------------------------------------------------------------------------------
@@ -35,12 +42,15 @@ let allDailyTotal = 0
 let stores = []
 let tableElem = document.getElementById('table')
 
+
 Stores.all = []
 new Stores('Seattle', 23, 65, 6.3);
 new Stores('Tokyo', 3, 24, 1.2);
 new Stores('Dubai', 11, 38, 3.7);
 new Stores('Paris', 20, 38, 2.3);
 new Stores('Lima', 2, 16, 4.6);
+
+
 
 function Stores(name, minCust, maxCust, avgCookieSales) {
   this.name = name;
