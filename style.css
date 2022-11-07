@@ -1,8 +1,11 @@
 body {
-  background-im: ;
+  background-image: url(https://github.com/codefellows/seattle-code-201d92/blob/main/class-08/lab-b/image-assets/fish.jpg?raw=true);
+  background-color: rgb(247, 83, 65);
 }
+
 #table {
   border: 1px solid black;
+  
 }
 
 td {
@@ -35,3 +38,13 @@ li a {
 li a:hover {
   background-color: rgb(248, 68, 68);
 }
+.navimg {
+  height: 30px;
+  width: 100px;
+  margin: auto;
+}
+.fampic {
+  width: 400px;
+  height: 250px;
+}
+
