@@ -26,18 +26,20 @@
       
       
     </table>
-    <form id="newCity" action="">
+
+    <script src="app.js"></script>
+
+    <form id="newCity" action="" onsubmit="handleFormSubmit();return false">
       <label for="city">City name</label>
       <input type="text" id="city" name="city">
-      <label for="mincookies">Minimum cookies an hour sold</label>
+      <label for="mincookies">Minimum customers an hour</label>
       <input type="text" id="mincookies" name="mincookies">
-      <label for="maxcookies">Maximum cookies an hour sold</label>
+      <label for="maxcookies">Maximum costumers an hour</label>
       <input type="text" id="maxcookies" name="maxcookies">
-      <label for="avgcookies" >Average cookies sold an hour</label>
+      <label for="avgcookies" >Average cookies sold per costumer</label>
       <input type="text" id="avgcookies" name="avgcookies">
       <input type="submit">
     </form>
-    <script src="app.js"></script>
 
     
   </main>

@@ -26,10 +26,7 @@ function createRowCell(tableRow, content) {
   tableRow.appendChild(tableCell);
 }
 
-function createStore(tableRow, rowHeader, tableCell) {
-  
 
-}
 
 
 // -------------------------------------------------------------------------------
@@ -39,11 +36,26 @@ function createStore(tableRow, rowHeader, tableCell) {
 let storeHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
 let storeHoursTotal = Array(storeHours.length).fill(0)
 let allDailyTotal = 0
-let stores = []
+// let stores = []
 let tableElem = document.getElementById('table')
 
 
 Stores.all = []
+
+function handleFormSubmit() {
+  var elements = document.getElementById("newCity").elements;
+  var storeCityData ={};
+  for(var i = 0 ; i < elements.length ; i++){
+      var item = elements.item(i);
+      storeCityData[item.name] = item.value;
+  }
+
+  console.log(storeCityData)
+  let newStore = new Stores(storeCityData.city, storeCityData.mincookies, storeCityData.maxcookies, storeCityData.avgcookies)
+  console.log(newStore);
+  newStore.render()
+}
+
 new Stores('Seattle', 23, 65, 6.3);
 new Stores('Tokyo', 3, 24, 1.2);
 new Stores('Dubai', 11, 38, 3.7);
